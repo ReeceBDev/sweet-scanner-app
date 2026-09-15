@@ -1,0 +1,18 @@
+# sweet-scanner-app runtime — deployed by the deploy-target as THREE coexisting projects:
+#   sweet-scanner-app-dev          on DEV_PORT  5088 (automatic: every dev-<sha8> tag push)
+#   sweet-scanner-app-pre-release  on PRE_PORT  5089 (automatic: every master-<sha8> tag push)
+#   sweet-scanner-app-prod         on PROD_PORT 5090 (rbowen's promotion only — same digest)
+# TAG + PORT are injected by the deployer from THIS repo's deploy/ports.env.
+# Redeploy of a project = replace (compose convergence), not a second instance.
+# read_only + tmpfs: the running container's filesystem is immutable; nginx
+# gets writable scratch only where it needs it (cache + /tmp for its pid).
+services:
+  app:
+    image: registry.divinearts.co.uk/sweet-scanner-app:${TAG:?set by deployer}
+    restart: unless-stopped
+    ports:
+      - "${PORT:?set by deployer}:8080"
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /tmp

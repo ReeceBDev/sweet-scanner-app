@@ -1,0 +1,50 @@
+# sweet-scanner-app pipeline — build+test on dev and master; push on both.
+# CI holds NOTHING (plan §3.7): the docker socket is mounted into steps by
+# the agent; registry auth = the CI ENGINE's certs.d client cert. Zero
+# secrets in this file. Tags are <branch>-<sha8> — a dev-<sha8> push rolls
+# the DEV deployment (5088), a master-<sha8> push rolls the PRE-RELEASE
+# deployment (5089); prod (5090) only moves by rbowen's promotion (from the
+# pre-release record).
+#
+# Flutter image: 3.44.0 is the newest stable the cirruslabs image repo
+# publishes — bump in step with the Dockerfile when 3.47.x lands there.
+when:
+  branch: [dev, master]
+steps:
+  build-test:
+    image: ghcr.io/cirruslabs/flutter:3.44.0
+    commands:
+      - flutter pub get
+      - flutter analyze
+      - flutter test
+  push-image:
+    image: docker:cli
+    commands:
+      - |
+        # retry N cmd... — transient-blip armour for docker builds (2026-09-03).
+        # The CI engine is a rootless daemon in an IPv4-only slirp4netns
+        # namespace: every auth.docker.io AAAA dial dies instantly with
+        # "network is unreachable", and builds only survive because the
+        # dialer falls back to IPv4. When a v4 blip lands in the same
+        # moment the build dies with that misleading v6 error (frontend
+        # master b5666ba2, 2026-09-03) — a retry covers the gap.
+        # BRACE-LESS law respected: no dollar-brace vars below.
+        retry() {
+          attempts=$1
+          shift
+          n=1
+          while :; do
+            if "$@"; then
+              return 0
+            fi
+            if [ "$n" -ge "$attempts" ]; then
+              echo "retry: giving up after $n attempts: $*" >&2
+              return 1
+            fi
+            echo "retry: attempt $n of $attempts failed, sleeping 10s" >&2
+            n=$((n+1))
+            sleep 10
+          done
+        }
+        retry 3 docker build -t registry.divinearts.co.uk/sweet-scanner-app:${CI_COMMIT_BRANCH}-${CI_COMMIT_SHA:0:8} .
+        docker push registry.divinearts.co.uk/sweet-scanner-app:${CI_COMMIT_BRANCH}-${CI_COMMIT_SHA:0:8}

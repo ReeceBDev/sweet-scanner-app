@@ -1,0 +1,15 @@
+# keep the docker build context lean — the image only needs the Flutter
+# web app sources, not local tooling state or non-web platform folders.
+.git
+.dart_tool
+.idea
+.vscode
+*.iml
+build
+coverage
+android
+ios
+linux
+macos
+windows
+test
