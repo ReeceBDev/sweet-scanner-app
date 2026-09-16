@@ -26,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Sweet Scanner uses the camera to photograph pages of text.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Sweet Scanner saves scanned pages as images so they can be printed.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
