@@ -34,10 +34,7 @@ class _DocumentEntryTileState extends State<DocumentEntryTile> {
     return Container(
       decoration: const BoxDecoration(
         border: Border(
-          bottom: BorderSide(
-            color: AppColors.ink,
-            width: AppSizes.borderWidth,
-          ),
+          bottom: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
         ),
       ),
       padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceS),
@@ -54,13 +51,14 @@ class _DocumentEntryTileState extends State<DocumentEntryTile> {
               child: Image.file(
                 File(widget.entry.photoPath),
                 fit: BoxFit.cover,
-                errorBuilder: (
-                  BuildContext context,
-                  Object error,
-                  StackTrace? stackTrace,
-                ) {
-                  return const ColoredBox(color: AppColors.disabled);
-                },
+                errorBuilder:
+                    (
+                      BuildContext context,
+                      Object error,
+                      StackTrace? stackTrace,
+                    ) {
+                      return const ColoredBox(color: AppColors.disabled);
+                    },
               ),
             ),
           ),
@@ -74,11 +72,31 @@ class _DocumentEntryTileState extends State<DocumentEntryTile> {
                   horizontal: AppSizes.spaceM,
                   vertical: AppSizes.spaceS,
                 ),
-                child: Text(
-                  widget.entry.text.isEmpty ? '(no text)' : widget.entry.text,
-                  maxLines: _expanded ? null : 3,
-                  overflow: _expanded ? null : TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: AppFontSizes.body),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      widget.entry.title.isEmpty
+                          ? '(no text)'
+                          : widget.entry.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: AppFontSizes.entry,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (widget.entry.description.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: AppSizes.spaceS),
+                        child: Text(
+                          widget.entry.description,
+                          maxLines: _expanded ? null : 1,
+                          overflow: _expanded ? null : TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: AppFontSizes.body),
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),

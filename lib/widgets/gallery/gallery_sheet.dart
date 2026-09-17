@@ -35,9 +35,7 @@ class GallerySheet extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.spaceM,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.spaceM),
               child: Row(
                 children: <Widget>[
                   const Text(

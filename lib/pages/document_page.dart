@@ -52,12 +52,15 @@ class _DocumentPageState extends State<DocumentPage> {
   @override
   void initState() {
     super.initState();
-    _editor = DocumentEditorController(
-      repository:
-          Provider.of<ScanDocumentRepository>(context, listen: false),
-    )
-      ..addListener(_handleEditorChanged)
-      ..load(widget.documentId);
+    _editor =
+        DocumentEditorController(
+            repository: Provider.of<ScanDocumentRepository>(
+              context,
+              listen: false,
+            ),
+          )
+          ..addListener(_handleEditorChanged)
+          ..load(widget.documentId);
     _photoStore = Provider.of<PhotoFileStore>(context, listen: false);
   }
 
@@ -141,8 +144,9 @@ class _DocumentPageState extends State<DocumentPage> {
     final ui.Image image = await boundary.toImage(
       pixelRatio: AppSizes.exportPixelRatio,
     );
-    final ByteData? data =
-        await image.toByteData(format: ui.ImageByteFormat.png);
+    final ByteData? data = await image.toByteData(
+      format: ui.ImageByteFormat.png,
+    );
     image.dispose();
     return data?.buffer.asUint8List();
   }
@@ -170,10 +174,7 @@ class _DocumentPageState extends State<DocumentPage> {
     }
     unawaited(
       SharePlus.instance.share(
-        ShareParams(
-          files: <XFile>[XFile(path)],
-          text: _editor.document?.name,
-        ),
+        ShareParams(files: <XFile>[XFile(path)], text: _editor.document?.name),
       ),
     );
   }
@@ -188,10 +189,12 @@ class _DocumentPageState extends State<DocumentPage> {
   Widget build(BuildContext context) {
     return switch (_editor.phase) {
       DocumentLoadPhase.ready => _buildReady(),
-      DocumentLoadPhase.notFound =>
-        const Center(child: Text('Document not found.')),
-      DocumentLoadPhase.loading =>
-        const Center(child: CircularProgressIndicator()),
+      DocumentLoadPhase.notFound => const Center(
+        child: Text('Document not found.'),
+      ),
+      DocumentLoadPhase.loading => const Center(
+        child: CircularProgressIndicator(),
+      ),
     };
   }
 
@@ -219,7 +222,7 @@ class _DocumentPageState extends State<DocumentPage> {
                 Expanded(
                   child: _exportOpen
                       ? MergedTextView(
-                          text: _editor.mergedText,
+                          entries: _editor.entries,
                           boundaryKey: _exportBoundaryKey,
                         )
                       : TextList(
@@ -303,10 +306,7 @@ class _DocumentPageState extends State<DocumentPage> {
     return Container(
       decoration: const BoxDecoration(
         border: Border(
-          top: BorderSide(
-            color: AppColors.ink,
-            width: AppSizes.borderWidth,
-          ),
+          top: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
         ),
       ),
       child: SafeArea(

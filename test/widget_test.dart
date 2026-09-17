@@ -14,7 +14,11 @@ void main() {
       name: 'Test document',
       createdAtIso: '2026-09-15T10:00:00.000',
       entries: <ScanDocumentEntryDto>[
-        ScanDocumentEntryDto(id: 'entry-1', photoPath: '/tmp/p1.jpg', text: 'hello'),
+        ScanDocumentEntryDto(
+          id: 'entry-1',
+          photoPath: '/tmp/p1.jpg',
+          text: 'hello',
+        ),
       ],
     );
 
@@ -33,8 +37,9 @@ void main() {
     expect(theme.colorScheme.primary, AppColors.ink);
   });
 
-  testWidgets('the expandable OCR text box expands on tap',
-      (WidgetTester tester) async {
+  testWidgets('the expandable OCR text box expands on tap', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.light(),

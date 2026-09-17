@@ -26,10 +26,8 @@ class TextPromptPopup extends StatefulWidget {
   }) {
     return showDialog<String>(
       context: context,
-      builder: (BuildContext context) => TextPromptPopup(
-        title: title,
-        initialText: initialText,
-      ),
+      builder: (BuildContext context) =>
+          TextPromptPopup(title: title, initialText: initialText),
     );
   }
 
@@ -38,8 +36,9 @@ class TextPromptPopup extends StatefulWidget {
 }
 
 class _TextPromptPopupState extends State<TextPromptPopup> {
-  late final TextEditingController _controller =
-      TextEditingController(text: widget.initialText);
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.initialText,
+  );
 
   @override
   void dispose() {
@@ -71,10 +70,7 @@ class _TextPromptPopupState extends State<TextPromptPopup> {
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Cancel'),
         ),
-        OutlinedButton(
-          onPressed: _submit,
-          child: Text(widget.confirmLabel),
-        ),
+        OutlinedButton(onPressed: _submit, child: Text(widget.confirmLabel)),
       ],
     );
   }

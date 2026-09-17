@@ -19,11 +19,7 @@ class ScanDocumentEntryDto {
   final String text;
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'photoPath': photoPath,
-      'text': text,
-    };
+    return <String, dynamic>{'id': id, 'photoPath': photoPath, 'text': text};
   }
 }
 

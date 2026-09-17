@@ -27,8 +27,8 @@ abstract final class ScannerRoutes {
       builder: (BuildContext context) => switch (settings.name) {
         library => const LibraryPage(),
         document => DocumentPage(
-            documentId: _documentArgs(settings).documentId,
-          ),
+          documentId: _documentArgs(settings).documentId,
+        ),
         _ => const CameraPage(),
       },
     );

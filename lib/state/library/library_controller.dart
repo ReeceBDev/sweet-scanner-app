@@ -10,7 +10,7 @@ enum LibraryPhase { loading, ready, failed }
 final class LibraryController extends ChangeNotifier {
   /// Creates the controller; call [refresh] once after construction.
   LibraryController({required ScanDocumentRepository repository})
-      : _repository = repository;
+    : _repository = repository;
 
   final ScanDocumentRepository _repository;
 

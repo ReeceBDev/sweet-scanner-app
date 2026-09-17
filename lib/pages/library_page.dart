@@ -29,12 +29,15 @@ class _LibraryPageState extends State<LibraryPage> {
   @override
   void initState() {
     super.initState();
-    _library = LibraryController(
-      repository:
-          Provider.of<ScanDocumentRepository>(context, listen: false),
-    )
-      ..addListener(_handleLibraryChanged)
-      ..refresh();
+    _library =
+        LibraryController(
+            repository: Provider.of<ScanDocumentRepository>(
+              context,
+              listen: false,
+            ),
+          )
+          ..addListener(_handleLibraryChanged)
+          ..refresh();
   }
 
   @override
@@ -68,8 +71,9 @@ class _LibraryPageState extends State<LibraryPage> {
       body: switch (_library.phase) {
         LibraryPhase.ready => _buildList(),
         LibraryPhase.failed => _buildFailed(),
-        LibraryPhase.loading =>
-          const Center(child: CircularProgressIndicator()),
+        LibraryPhase.loading => const Center(
+          child: CircularProgressIndicator(),
+        ),
       },
     );
   }
@@ -96,8 +100,7 @@ class _LibraryPageState extends State<LibraryPage> {
                   color: AppColors.ink,
                   width: AppSizes.borderWidth,
                 ),
-                borderRadius:
-                    BorderRadius.circular(AppSizes.borderRadius),
+                borderRadius: BorderRadius.circular(AppSizes.borderRadius),
               ),
               child: Row(
                 children: <Widget>[

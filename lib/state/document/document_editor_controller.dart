@@ -11,7 +11,7 @@ enum DocumentLoadPhase { loading, ready, notFound }
 final class DocumentEditorController extends ChangeNotifier {
   /// Creates the controller; call [load] once after construction.
   DocumentEditorController({required ScanDocumentRepository repository})
-      : _repository = repository;
+    : _repository = repository;
 
   final ScanDocumentRepository _repository;
 

@@ -45,12 +45,16 @@ class _CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     super.initState();
-    _session = CaptureSessionController(
-      gateway: Provider.of<TextRecognitionGateway>(context, listen: false),
-      photoStore: Provider.of<PhotoFileStore>(context, listen: false),
-    )
-      ..addListener(_handleSessionChanged)
-      ..initialize();
+    _session =
+        CaptureSessionController(
+            gateway: Provider.of<TextRecognitionGateway>(
+              context,
+              listen: false,
+            ),
+            photoStore: Provider.of<PhotoFileStore>(context, listen: false),
+          )
+          ..addListener(_handleSessionChanged)
+          ..initialize();
   }
 
   @override
@@ -130,15 +134,15 @@ class _CameraPageState extends State<CameraPage> {
       body: switch (_session.phase) {
         CapturePhase.ready => _buildCamera(),
         CapturePhase.permissionDenied => _buildMessage(
-            message: 'Camera access is required to scan pages.',
-            actionLabel: 'Grant access',
-            onAction: _session.initialize,
-          ),
+          message: 'Camera access is required to scan pages.',
+          actionLabel: 'Grant access',
+          onAction: _session.initialize,
+        ),
         CapturePhase.failed => _buildMessage(
-            message: _session.errorMessage ?? 'The camera could not be started.',
-            actionLabel: 'Retry',
-            onAction: _session.initialize,
-          ),
+          message: _session.errorMessage ?? 'The camera could not be started.',
+          actionLabel: 'Retry',
+          onAction: _session.initialize,
+        ),
         _ => const Center(child: CircularProgressIndicator()),
       },
     );
@@ -203,8 +207,7 @@ class _CameraPageState extends State<CameraPage> {
                 _galleryOpen = false;
               }),
               onPhotoDelete: _deletePhoto,
-              onPhotoRetake: (CapturedPhoto photo) =>
-                  _session.retake(photo.id),
+              onPhotoRetake: (CapturedPhoto photo) => _session.retake(photo.id),
               onOcrRetry: (CapturedPhoto photo) =>
                   unawaited(_session.ensureRecognition(photo.id)),
             ),

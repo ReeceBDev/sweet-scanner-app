@@ -24,10 +24,7 @@ class ExportActionBar extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         border: Border(
-          top: BorderSide(
-            color: AppColors.ink,
-            width: AppSizes.borderWidth,
-          ),
+          top: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
         ),
       ),
       child: SafeArea(

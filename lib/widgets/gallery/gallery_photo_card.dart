@@ -54,8 +54,8 @@ class _GalleryPhotoCardState extends State<GalleryPhotoCard> {
               fit: BoxFit.cover,
               errorBuilder:
                   (BuildContext context, Object error, StackTrace? stackTrace) {
-                return const ColoredBox(color: AppColors.disabled);
-              },
+                    return const ColoredBox(color: AppColors.disabled);
+                  },
             ),
           ),
         ),

@@ -83,11 +83,7 @@ class _ExpandableTextBoxState extends State<ExpandableTextBox> {
         ),
         const SizedBox(width: AppSizes.spaceS),
         Expanded(child: _buildStatusOrSnippet(singleLine: true)),
-        Icon(
-          Icons.expand_more,
-          size: AppSizes.iconSize,
-          color: AppColors.ink,
-        ),
+        Icon(Icons.expand_more, size: AppSizes.iconSize, color: AppColors.ink),
       ],
     );
   }

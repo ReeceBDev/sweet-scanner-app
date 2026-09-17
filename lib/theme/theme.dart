@@ -38,10 +38,7 @@ abstract final class AppTheme {
         surfaceTintColor: AppColors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.borderRadius),
-          side: BorderSide(
-            color: AppColors.ink,
-            width: AppSizes.borderWidth,
-          ),
+          side: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
         ),
         titleTextStyle: const TextStyle(
           color: AppColors.ink,
@@ -60,10 +57,7 @@ abstract final class AppTheme {
           borderRadius: BorderRadius.all(
             Radius.circular(AppSizes.borderRadius),
           ),
-          side: BorderSide(
-            color: AppColors.ink,
-            width: AppSizes.borderWidth,
-          ),
+          side: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(

@@ -23,9 +23,7 @@ class ScannerApp extends StatelessWidget {
     return MultiProvider(
       providers: <SingleChildWidget>[
         Provider<PhotoFileStore>(create: (_) => PhotoFileStore()),
-        Provider<ScanDocumentFileStore>(
-          create: (_) => ScanDocumentFileStore(),
-        ),
+        Provider<ScanDocumentFileStore>(create: (_) => ScanDocumentFileStore()),
         Provider<TextRecognitionGateway>(
           create: (_) => VisionTextRecognitionGateway(),
         ),

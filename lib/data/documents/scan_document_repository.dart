@@ -9,7 +9,7 @@ import 'package:sweet_scanner_app/state/document/scan_document.dart';
 final class ScanDocumentRepository {
   /// Creates the repository over [store].
   ScanDocumentRepository({required ScanDocumentFileStore store})
-      : _store = store;
+    : _store = store;
 
   final ScanDocumentFileStore _store;
 
@@ -31,11 +31,10 @@ final class ScanDocumentRepository {
   /// Every document, newest first.
   Future<List<ScanDocument>> getAll() async {
     final List<ScanDocument> documents =
-        (await _store.readAll()).map(_fromDto).toList()
-          ..sort(
-            (ScanDocument a, ScanDocument b) =>
-                b.createdAt.compareTo(a.createdAt),
-          );
+        (await _store.readAll()).map(_fromDto).toList()..sort(
+          (ScanDocument a, ScanDocument b) =>
+              b.createdAt.compareTo(a.createdAt),
+        );
     return documents;
   }
 

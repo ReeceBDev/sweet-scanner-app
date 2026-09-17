@@ -16,6 +16,32 @@ class DocumentEntry {
   final String photoPath;
 
   final String text;
+
+  /// The entry's title: the first line of recognised text. The convention is
+  /// that the top line of a scan is the heading and everything underneath it
+  /// is the body.
+  String get title {
+    for (final String line in text.split('\n')) {
+      final String trimmed = line.trim();
+      if (trimmed.isNotEmpty) {
+        return trimmed;
+      }
+    }
+    return '';
+  }
+
+  /// Everything underneath the [title] line, as one block. Empty when the
+  /// scan recognised a single line only.
+  String get description {
+    final List<String> lines = text.split('\n');
+    final int titleIndex = lines.indexWhere(
+      (String line) => line.trim().isNotEmpty,
+    );
+    if (titleIndex < 0) {
+      return '';
+    }
+    return lines.skip(titleIndex + 1).join('\n').trim();
+  }
 }
 
 /// A named collection of photographed pages and their recognised text.

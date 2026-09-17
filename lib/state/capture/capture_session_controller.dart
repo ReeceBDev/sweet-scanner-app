@@ -21,8 +21,8 @@ final class CaptureSessionController extends ChangeNotifier {
   CaptureSessionController({
     required TextRecognitionGateway gateway,
     required PhotoFileStore photoStore,
-  })  : _gateway = gateway,
-        _photoStore = photoStore;
+  }) : _gateway = gateway,
+       _photoStore = photoStore;
 
   final TextRecognitionGateway _gateway;
   final PhotoFileStore _photoStore;
@@ -60,8 +60,9 @@ final class CaptureSessionController extends ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
 
-    final Map<Permission, PermissionStatus> statuses =
-        await <Permission>[Permission.camera].request();
+    final Map<Permission, PermissionStatus> statuses = await <Permission>[
+      Permission.camera,
+    ].request();
     final bool accessGranted = statuses[Permission.camera]?.isGranted ?? false;
     if (!accessGranted) {
       _phase = CapturePhase.permissionDenied;
@@ -203,8 +204,9 @@ final class CaptureSessionController extends ChangeNotifier {
     }
     try {
       final XFile shot = await camera.takePicture();
-      final String path =
-          await _photoStore.saveCapture(await shot.readAsBytes());
+      final String path = await _photoStore.saveCapture(
+        await shot.readAsBytes(),
+      );
       _sequence += 1;
       return CapturedPhoto(id: 'photo-$_sequence', path: path);
     } on CameraException {

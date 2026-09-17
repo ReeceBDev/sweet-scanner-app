@@ -22,21 +22,14 @@ class ScannerIconButton extends StatelessWidget {
     final Widget button = Material(
       color: AppColors.background,
       shape: CircleBorder(
-        side: BorderSide(
-          color: AppColors.ink,
-          width: AppSizes.borderWidth,
-        ),
+        side: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onPressed,
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.spaceS),
-          child: Icon(
-            icon,
-            size: AppSizes.iconSize,
-            color: AppColors.ink,
-          ),
+          child: Icon(icon, size: AppSizes.iconSize, color: AppColors.ink),
         ),
       ),
     );

@@ -15,10 +15,7 @@ class CaptureButton extends StatelessWidget {
     return Material(
       color: AppColors.background,
       shape: CircleBorder(
-        side: BorderSide(
-          color: AppColors.ink,
-          width: AppSizes.borderWidth,
-        ),
+        side: BorderSide(color: AppColors.ink, width: AppSizes.borderWidth),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
